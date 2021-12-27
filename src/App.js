@@ -6,6 +6,7 @@ import './App.css'
 import FarmSelector from './components/FarmSelector'
 import Map from './components/Map'
 import Table from './components/Table'
+import { getFormattedDate } from './utils/DateTimeUtils'
 
 function App() {
   const [farms, setFarms] = useState([])
@@ -41,7 +42,14 @@ function App() {
     if (selectedFarmId && selectedPeriod === 'all') {
       selectedFarm = farms.find((farm) => farm?.farm_id === selectedFarmId)
       getStatsFarm(selectedFarm?.farm_id)?.then((res) => {
-        setReport(res.data.measurements)
+        const farmDataRes = res.data.measurements.map((ele) => ({
+          ...ele,
+          datetime: getFormattedDate(
+            new Date(ele.datetime),
+            'DD.MM.YYYY HH:mm:ss'
+          ),
+        }))
+        setReport(farmDataRes)
       })
     } else if (
       selectedFarmId &&
@@ -51,14 +59,14 @@ function App() {
       selectedFarm = farms.find((farm) => farm?.farm_id === selectedFarmId)
       getStatsFarmMonthly(selectedFarm?.farm_id, selectedSensor)?.then(
         (res) => {
-          const sorter = (a, b) => {
+          const sortMonthYear = (a, b) => {
             if (a.year !== b.year) {
               return a.year - b.year
             } else {
               return a.month - b.month
             }
           }
-          setReport(res.data.stats.sort(sorter))
+          setReport(res.data.stats.sort(sortMonthYear))
         }
       )
     }
