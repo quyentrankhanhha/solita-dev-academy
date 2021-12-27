@@ -1,6 +1,7 @@
 import { Box, FormControl, InputLabel, NativeSelect } from '@mui/material'
 import React from 'react'
 import { period_type, sensor_type } from '../../constant'
+import styles from './styles.module.css'
 
 const FarmSelector = ({
   farms,
@@ -12,7 +13,7 @@ const FarmSelector = ({
   handleOnSensorChange,
 }) => {
   return (
-    <Box>
+    <Box className={styles.selector_wrapper}>
       <FormControl>
         <InputLabel htmlFor='' shrink>
           Farm
@@ -34,7 +35,7 @@ const FarmSelector = ({
           })}
         </NativeSelect>
       </FormControl>
-      <FormControl>
+      <FormControl className={styles.selector}>
         <InputLabel htmlFor='' shrink>
           Period
         </InputLabel>
@@ -70,8 +71,8 @@ const FarmSelector = ({
           >
             {sensor_type?.map((type, index) => {
               return (
-                <option value={type} key={`farm-${index}`}>
-                  {type}
+                <option value={type.type} key={`farm-${index}`}>
+                  {type.name}
                 </option>
               )
             })}

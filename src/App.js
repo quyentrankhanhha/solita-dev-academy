@@ -1,6 +1,7 @@
+import { Grid } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
-import { getFarms, getStatsFarm } from './api'
+import { getFarms, getStatsFarm, getStatsFarmMonthly } from './api'
 import './App.css'
 import FarmSelector from './components/FarmSelector'
 import Map from './components/Map'
@@ -10,7 +11,7 @@ function App() {
   const [farms, setFarms] = useState([])
   const [selectedFarmId, setSelectedFarmId] = useState('')
   const [selectedPeriod, setSelectedPeriod] = useState('')
-  const [selectedSensor, setSelectedSensor] = useState('tamperature')
+  const [selectedSensor, setSelectedSensor] = useState('')
   const [report, setReport] = useState([])
 
   useEffect(() => {
@@ -36,16 +37,32 @@ function App() {
   }
 
   useEffect(() => {
-    if (selectedFarmId) {
-      const selectedFarm = farms.find(
-        (farm) => farm?.farm_id === selectedFarmId
-      )
-
+    let selectedFarm
+    if (selectedFarmId && selectedPeriod === 'all') {
+      selectedFarm = farms.find((farm) => farm?.farm_id === selectedFarmId)
       getStatsFarm(selectedFarm?.farm_id)?.then((res) => {
         setReport(res.data.measurements)
       })
+    } else if (
+      selectedFarmId &&
+      selectedPeriod !== 'all' &&
+      selectedSensor !== 'none'
+    ) {
+      selectedFarm = farms.find((farm) => farm?.farm_id === selectedFarmId)
+      getStatsFarmMonthly(selectedFarm?.farm_id, selectedSensor)?.then(
+        (res) => {
+          const sorter = (a, b) => {
+            if (a.year !== b.year) {
+              return a.year - b.year
+            } else {
+              return a.month - b.month
+            }
+          }
+          setReport(res.data.stats.sort(sorter))
+        }
+      )
     }
-  }, [farms, selectedFarmId])
+  }, [farms, selectedFarmId, selectedPeriod, selectedSensor])
 
   return (
     <div className='App'>
@@ -60,8 +77,18 @@ function App() {
           sensorValue={selectedSensor}
         ></FarmSelector>
       </Box>
-      <Table farm={report} />
-      <Map />
+      <Grid container direction='row' justifyContent='space-between'>
+        <Grid item xs>
+          <Map />
+        </Grid>
+        <Grid item xs>
+          <Table
+            farm={report}
+            selectedPeriod={selectedPeriod}
+            selectedSensor={selectedSensor}
+          />
+        </Grid>
+      </Grid>
     </div>
   )
 }
