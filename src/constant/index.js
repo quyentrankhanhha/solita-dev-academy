@@ -60,8 +60,13 @@ export const period_type = [
 ]
 
 export const sensor_type = [
-  { name: 'Choose sensor', type: 'none' },
-  { name: 'Temperature', type: 'temperature' },
-  { name: 'pH', type: 'ph' },
-  { name: 'Rainfall', type: 'rainfall' },
+  { name: 'Choose sensor', type: 'none', unit: '', title: '' },
+  {
+    name: 'Temperature',
+    type: 'temperature',
+    unit: '°',
+    title: 'Monthly Temperature',
+  },
+  { name: 'pH', type: 'ph', unit: '', title: 'Monthly pH' },
+  { name: 'Rainfall', type: 'rainfall', unit: 'mm', title: 'Monthly Rainfall' },
 ]

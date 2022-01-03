@@ -3,6 +3,7 @@ import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { getFarms, getStatsFarm, getStatsFarmMonthly } from './api'
 import './App.css'
+import LineChart from './components/Charts/LineChart'
 import FarmSelector from './components/FarmSelector'
 import Map from './components/Map'
 import Table from './components/Table'
@@ -11,9 +12,13 @@ import { getFormattedDate } from './utils/DateTimeUtils'
 function App() {
   const [farms, setFarms] = useState([])
   const [selectedFarmId, setSelectedFarmId] = useState('')
-  const [selectedPeriod, setSelectedPeriod] = useState('')
-  const [selectedSensor, setSelectedSensor] = useState('')
+  const [selectedPeriod, setSelectedPeriod] = useState('all')
+  const [selectedSensor, setSelectedSensor] = useState('none')
   const [report, setReport] = useState([])
+  const [temData, setTemData] = useState([])
+
+  const [phData, setPhData] = useState([])
+  const [rainfallData, setRainfallData] = useState([])
 
   useEffect(() => {
     getFarms()
@@ -26,7 +31,7 @@ function App() {
   }, [])
 
   const handleOnFarmChange = (e) => {
-    setSelectedFarmId(e.target.farmValue)
+    setSelectedFarmId(e.target.value)
   }
 
   const handleOnPeriodChange = (e) => {
@@ -40,23 +45,31 @@ function App() {
   useEffect(() => {
     let selectedFarm
     if (selectedFarmId && selectedPeriod === 'all') {
-      selectedFarm = farms.find((farm) => farm?.farm_id === selectedFarmId)
+      selectedFarm = farms?.find((farm) => farm?.farm_id === selectedFarmId)
       getStatsFarm(selectedFarm?.farm_id)?.then((res) => {
-        const farmDataRes = res.data.measurements.map((ele) => ({
+        const farmData = res.data.measurements.map((ele) => ({
           ...ele,
           datetime: getFormattedDate(
             new Date(ele.datetime),
             'DD.MM.YYYY HH:mm:ss'
           ),
+          test: new Date(ele.datetime),
         }))
-        setReport(farmDataRes)
+        setPhData(farmData?.filter((item) => item?.sensor_type === 'ph'))
+        temData = farmData?.filter(
+          (item) => item?.sensor_type === 'temperature'
+        )
+        rainfallData = farmData?.filter(
+          (item) => item?.sensor_type === 'rainfall'
+        )
+        setReport(farmData)
       })
     } else if (
       selectedFarmId &&
       selectedPeriod !== 'all' &&
       selectedSensor !== 'none'
     ) {
-      selectedFarm = farms.find((farm) => farm?.farm_id === selectedFarmId)
+      selectedFarm = farms?.find((farm) => farm?.farm_id === selectedFarmId)
       getStatsFarmMonthly(selectedFarm?.farm_id, selectedSensor)?.then(
         (res) => {
           const sortMonthYear = (a, b) => {
@@ -90,12 +103,28 @@ function App() {
           <Map />
         </Grid>
         <Grid item xs>
-          <Table
-            farm={report}
-            selectedPeriod={selectedPeriod}
-            selectedSensor={selectedSensor}
-          />
+          <Table farm={report} selectedPeriod={selectedPeriod} />
         </Grid>
+      </Grid>
+      <Grid container justifyContent='center'>
+        {selectedSensor !== 'none' && (
+          <Grid item>
+            <LineChart selectedSensor={selectedSensor} report={report} />
+          </Grid>
+        )}
+        {selectedPeriod === 'all' && (
+          <>
+            <Grid item xs={12}>
+              <LineChart report={phData} />
+            </Grid>
+            <Grid item>
+              <LineChart report={temData} />
+            </Grid>
+            <Grid item>
+              <LineChart report={rainfallData} />
+            </Grid>
+          </>
+        )}
       </Grid>
     </div>
   )
