@@ -56,11 +56,11 @@ function App() {
           test: new Date(ele.datetime),
         }))
         setPhData(farmData?.filter((item) => item?.sensor_type === 'ph'))
-        temData = farmData?.filter(
-          (item) => item?.sensor_type === 'temperature'
+        setTemData(
+          farmData?.filter((item) => item?.sensor_type === 'temperature')
         )
-        rainfallData = farmData?.filter(
-          (item) => item?.sensor_type === 'rainfall'
+        setRainfallData(
+          farmData?.filter((item) => item?.sensor_type === 'rainfall')
         )
         setReport(farmData)
       })
@@ -107,23 +107,30 @@ function App() {
         </Grid>
       </Grid>
       <Grid container justifyContent='center'>
-        {selectedSensor !== 'none' && (
+        {selectedPeriod === 'all' ? (
+          <Grid container>
+            <Grid item xs={12} className='chart_container'>
+              <LineChart report={phData} title='pH Data' />
+            </Grid>
+            <Grid item xs={12} className='chart_container'>
+              <LineChart
+                report={temData}
+                title='Temperature Data'
+                value='Temperature (°C)'
+              />
+            </Grid>
+            <Grid item xs={12} className='chart_container'>
+              <LineChart
+                report={rainfallData}
+                title='Rainfall Data'
+                value='Rainfall (mm)'
+              />
+            </Grid>
+          </Grid>
+        ) : (
           <Grid item>
             <LineChart selectedSensor={selectedSensor} report={report} />
           </Grid>
-        )}
-        {selectedPeriod === 'all' && (
-          <>
-            <Grid item xs={12}>
-              <LineChart report={phData} />
-            </Grid>
-            <Grid item>
-              <LineChart report={temData} />
-            </Grid>
-            <Grid item>
-              <LineChart report={rainfallData} />
-            </Grid>
-          </>
         )}
       </Grid>
     </div>

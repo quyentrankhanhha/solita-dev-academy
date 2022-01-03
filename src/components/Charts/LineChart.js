@@ -3,7 +3,7 @@ import HighchartsReact from 'highcharts-react-official'
 import React, { useEffect, useState } from 'react'
 import { sensor_type } from '../../constant'
 
-const LineChart = ({ report, selectedSensor }) => {
+const LineChart = ({ report, selectedSensor, title = '', value = '' }) => {
   const [options, setOptions] = useState({})
   let sensor, date
   if (selectedSensor) {
@@ -43,32 +43,8 @@ const LineChart = ({ report, selectedSensor }) => {
 
   const eachOptions = () => {
     return {
-      chart: {
-        width: '100%',
-      },
       title: {
-        text: 'test',
-      },
-      rangeSelector: {
-        buttons: [
-          {
-            type: 'month',
-            count: 1,
-            text: '1M',
-          },
-          {
-            type: 'year',
-            count: 1,
-            text: '1Y',
-          },
-          {
-            type: 'all',
-            count: 1,
-            text: 'All',
-          },
-        ],
-        selected: 1,
-        inputEnabled: false,
+        text: title,
       },
       xAxis: [
         {
@@ -79,7 +55,7 @@ const LineChart = ({ report, selectedSensor }) => {
       ],
       yAxis: {
         title: {
-          text: 'Test',
+          text: value,
         },
       },
       series: [
