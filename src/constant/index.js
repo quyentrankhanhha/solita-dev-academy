@@ -70,3 +70,14 @@ export const sensor_type = [
   { name: 'pH', type: 'ph', unit: '', title: 'Monthly pH' },
   { name: 'Rainfall', type: 'rainfall', unit: 'mm', title: 'Monthly Rainfall' },
 ]
+
+export const selector_choice = [
+  {
+    name: 'Add New Farm',
+    type: 'new',
+  },
+  {
+    name: 'Add Data To Current Farm',
+    type: 'current',
+  },
+]

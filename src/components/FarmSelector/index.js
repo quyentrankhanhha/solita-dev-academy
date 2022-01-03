@@ -1,6 +1,7 @@
 import { Box, FormControl, InputLabel, NativeSelect } from '@mui/material'
 import React from 'react'
 import { period_type, sensor_type } from '../../constant'
+import AddData from '../AddData'
 import styles from './styles.module.css'
 
 const FarmSelector = ({
@@ -79,6 +80,7 @@ const FarmSelector = ({
           </NativeSelect>
         </FormControl>
       )}
+      <AddData farms={farms} />
     </Box>
   )
 }

@@ -100,7 +100,7 @@ function App() {
       </Box>
       <Grid container direction='row' justifyContent='space-between'>
         <Grid item xs>
-          <Map />
+          <Map farms={farms} handleOnFarmChange={handleOnFarmChange} />
         </Grid>
         <Grid item xs>
           <Table farm={report} selectedPeriod={selectedPeriod} />

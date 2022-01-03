@@ -1,0 +1,17 @@
+.btn_container {
+  display: inline-flex;
+  padding: 15px 0;
+}
+
+.popup_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  box-shadow: 24;
+  padding: 14px 20px;
+}
