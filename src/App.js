@@ -31,6 +31,15 @@ function App() {
   useEffect(() => {
     getFarms()
       .then((res) => {
+        const latlngData = [
+          { lat: 61.49911, lng: 23.78712 },
+          { lat: 62.30001, lng: 24.23423 },
+          { lat: 63.12345, lng: 30.12311 },
+          { lat: 60.43165, lng: 25.65671 },
+        ]
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].latlngData = latlngData[i]
+        }
         setFarms(res.data)
         setSelectedFarmId('1')
         setSelectedPeriod('all')
@@ -61,7 +70,6 @@ function App() {
             new Date(ele.datetime),
             'DD.MM.YYYY HH:mm:ss'
           ),
-          test: new Date(ele.datetime),
         }))
         setPhData(farmData?.filter((item) => item?.sensor_type === 'ph'))
         setTemData(
