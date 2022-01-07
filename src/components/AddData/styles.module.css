@@ -15,3 +15,39 @@
   box-shadow: 24;
   padding: 14px 20px;
 }
+
+.form_container {
+  margin: 16px 0 !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.drag_area {
+  margin: 20px 0;
+  border: 2px dashed #000;
+  height: 200px;
+  width: 400px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.btn_upload {
+  color: #000;
+}
+
+.btn_upload:hover {
+  background-color: silver;
+}
+
+.wrapper_add {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  padding: 10px 0;
+}

@@ -19,6 +19,14 @@ function App() {
 
   const [phData, setPhData] = useState([])
   const [rainfallData, setRainfallData] = useState([])
+  const [type, setType] = useState(false)
+  const [farmChoice, setFarmChoice] = useState('')
+  const handleOnChangeType = (e) => {
+    setType(e.target.value)
+  }
+  const handleOnFarmChoice = (e) => {
+    setFarmChoice(e.target.value)
+  }
 
   useEffect(() => {
     getFarms()
@@ -96,6 +104,10 @@ function App() {
           farmValue={selectedFarmId}
           periodValue={selectedPeriod}
           sensorValue={selectedSensor}
+          type={type}
+          farmChoice={farmChoice}
+          handleOnChangeType={handleOnChangeType}
+          handleOnFarmChoice={handleOnFarmChoice}
         ></FarmSelector>
       </Box>
       <Grid container direction='row' justifyContent='space-between'>

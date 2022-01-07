@@ -9,9 +9,13 @@ const FarmSelector = ({
   farmValue,
   periodValue,
   sensorValue,
+  type,
+  farmChoice,
   handleOnFarmChange,
   handleOnPeriodChange,
   handleOnSensorChange,
+  handleOnChangeType,
+  handleOnFarmChoice,
 }) => {
   return (
     <Box className={styles.selector_wrapper}>
@@ -50,7 +54,7 @@ const FarmSelector = ({
         >
           {period_type?.map((type, index) => {
             return (
-              <option value={type.type} key={`farm-${index}`}>
+              <option value={type?.type} key={`farm-${index}`}>
                 {type?.name}
               </option>
             )
@@ -80,7 +84,13 @@ const FarmSelector = ({
           </NativeSelect>
         </FormControl>
       )}
-      <AddData farms={farms} />
+      <AddData
+        farms={farms}
+        type={type}
+        farmChoice={farmChoice}
+        handleOnChangeType={handleOnChangeType}
+        handleOnFarmChoice={handleOnFarmChoice}
+      />
     </Box>
   )
 }
