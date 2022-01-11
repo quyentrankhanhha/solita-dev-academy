@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { getFarms, getStatsFarm, getStatsFarmMonthly } from './api'
@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     getFarms()
       .then((res) => {
+        // add random latitude and longitude for farms
         const latlngData = [
           { lat: 61.49911, lng: 23.78712 },
           { lat: 62.30001, lng: 24.23423 },
@@ -40,6 +41,7 @@ function App() {
         for (let i = 0; i < res.data.length; i++) {
           res.data[i].latlngData = latlngData[i]
         }
+        console.log(res.data)
         setFarms(res.data)
         setSelectedFarmId('1')
         setSelectedPeriod('all')
@@ -57,6 +59,16 @@ function App() {
 
   const handleOnSensorChange = (e) => {
     setSelectedSensor(e.target.value)
+  }
+
+  const handleClickFarmChange = (e) => {
+    setSelectedFarmId(
+      farms?.find(
+        (farm) =>
+          farm?.latlngData.lat === e?.latlng?.lat &&
+          farm?.latlngData.lng === e?.latlng?.lng
+      ).farm_id
+    )
   }
 
   useEffect(() => {
@@ -103,56 +115,65 @@ function App() {
 
   return (
     <div className='App'>
-      <Box>
-        <FarmSelector
-          farms={farms}
-          handleOnFarmChange={handleOnFarmChange}
-          handleOnPeriodChange={handleOnPeriodChange}
-          handleOnSensorChange={handleOnSensorChange}
-          farmValue={selectedFarmId}
-          periodValue={selectedPeriod}
-          sensorValue={selectedSensor}
-          type={type}
-          farmChoice={farmChoice}
-          handleOnChangeType={handleOnChangeType}
-          handleOnFarmChoice={handleOnFarmChoice}
-        ></FarmSelector>
-      </Box>
-      <Grid container direction='row' justifyContent='space-between'>
-        <Grid item xs>
-          <Map farms={farms} handleOnFarmChange={handleOnFarmChange} />
-        </Grid>
-        <Grid item xs>
-          <Table farm={report} selectedPeriod={selectedPeriod} />
-        </Grid>
-      </Grid>
-      <Grid container justifyContent='center'>
-        {selectedPeriod === 'all' ? (
-          <Grid container>
-            <Grid item xs={12} className='chart_container'>
-              <LineChart report={phData} title='pH Data' />
-            </Grid>
-            <Grid item xs={12} className='chart_container'>
-              <LineChart
-                report={temData}
-                title='Temperature Data'
-                value='Temperature (°C)'
+      {farms.length > 0 ? (
+        <>
+          <Box>
+            <FarmSelector
+              farms={farms}
+              handleOnFarmChange={handleOnFarmChange}
+              handleOnPeriodChange={handleOnPeriodChange}
+              handleOnSensorChange={handleOnSensorChange}
+              farmValue={selectedFarmId}
+              periodValue={selectedPeriod}
+              sensorValue={selectedSensor}
+              type={type}
+              farmChoice={farmChoice}
+              handleOnChangeType={handleOnChangeType}
+              handleOnFarmChoice={handleOnFarmChoice}
+            ></FarmSelector>
+          </Box>
+          <Grid container direction='row' justifyContent='space-between'>
+            <Grid item xs>
+              <Map
+                farms={farms}
+                handleClickFarmChange={handleClickFarmChange}
               />
             </Grid>
-            <Grid item xs={12} className='chart_container'>
-              <LineChart
-                report={rainfallData}
-                title='Rainfall Data'
-                value='Rainfall (mm)'
-              />
+            <Grid item xs>
+              <Table farm={report} selectedPeriod={selectedPeriod} />
             </Grid>
           </Grid>
-        ) : (
-          <Grid item>
-            <LineChart selectedSensor={selectedSensor} report={report} />
+          <Grid container justifyContent='center'>
+            {selectedPeriod === 'all' ? (
+              <Grid container>
+                <Grid item xs={12} className='chart_container'>
+                  <LineChart report={phData} title='pH Data' />
+                </Grid>
+                <Grid item xs={12} className='chart_container'>
+                  <LineChart
+                    report={temData}
+                    title='Temperature Data'
+                    value='Temperature (°C)'
+                  />
+                </Grid>
+                <Grid item xs={12} className='chart_container'>
+                  <LineChart
+                    report={rainfallData}
+                    title='Rainfall Data'
+                    value='Rainfall (mm)'
+                  />
+                </Grid>
+              </Grid>
+            ) : (
+              <Grid item>
+                <LineChart selectedSensor={selectedSensor} report={report} />
+              </Grid>
+            )}
           </Grid>
-        )}
-      </Grid>
+        </>
+      ) : (
+        <Typography data-testid='error-data'>Something went wrong</Typography>
+      )}
     </div>
   )
 }

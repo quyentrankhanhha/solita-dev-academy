@@ -41,7 +41,7 @@ const FarmSelector = ({
         </NativeSelect>
       </FormControl>
       <FormControl className={styles.selector}>
-        <InputLabel htmlFor='' shrink>
+        <InputLabel htmlFor='period' shrink>
           Period
         </InputLabel>
         <NativeSelect
@@ -49,12 +49,17 @@ const FarmSelector = ({
           onChange={handleOnPeriodChange}
           inputProps={{
             name: 'period',
-            id: 'period-selector',
+            id: 'period',
+            'data-testid': 'select-period',
           }}
         >
           {period_type?.map((type, index) => {
             return (
-              <option value={type?.type} key={`farm-${index}`}>
+              <option
+                data-testid='period-selection'
+                value={type?.type}
+                key={`farm-${index}`}
+              >
                 {type?.name}
               </option>
             )
@@ -63,7 +68,7 @@ const FarmSelector = ({
       </FormControl>
       {periodValue !== 'all' && (
         <FormControl>
-          <InputLabel htmlFor='' shrink>
+          <InputLabel htmlFor='sensor' shrink>
             Sensor Type
           </InputLabel>
           <NativeSelect
@@ -71,7 +76,7 @@ const FarmSelector = ({
             onChange={handleOnSensorChange}
             inputProps={{
               name: 'sensor',
-              id: 'sensor-selector',
+              id: 'sensor',
             }}
           >
             {sensor_type?.map((type, index) => {

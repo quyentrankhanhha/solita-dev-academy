@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
-const Map = ({ farms, handleOnFarmChange }) => {
+const Map = ({ farms, handleClickFarmChange }) => {
   const [popupOpen, setPopupOpen] = useState(false)
   const [map, setMap] = useState()
   let markerRefs = useRef({})
@@ -12,6 +12,7 @@ const Map = ({ farms, handleOnFarmChange }) => {
       markerRefs.openOn(map)
     }
   }, [markerRefs, map])
+
   return (
     <MapContainer
       style={{ height: '50vh', width: '100%' }}
@@ -27,9 +28,7 @@ const Map = ({ farms, handleOnFarmChange }) => {
       {farms?.map((farm, index) => (
         <Marker
           eventHandlers={{
-            click: (e) => {
-              console.log('marker clicked', e.latlng)
-            },
+            click: handleClickFarmChange,
           }}
           key={`farm-${index}`}
           position={[farm?.latlngData?.lat, farm?.latlngData?.lng]}
