@@ -159,3 +159,163 @@ exports[`FarmSelector render component 1`] = `
   </div>
 </div>
 `;
+
+exports[`render component 1`] = `
+<div>
+  <div
+    class="selector_wrapper MuiBox-root css-0"
+  >
+    <div
+      class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+    >
+      <label
+        class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1kty9di-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink="true"
+        for=""
+      >
+        Farm
+      </label>
+      <div
+        class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiNativeSelect-root css-1480iag-MuiInputBase-root-MuiInput-root"
+      >
+        <select
+          aria-invalid="false"
+          class="MuiNativeSelect-select MuiNativeSelect-outlined MuiInput-input MuiInputBase-input css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input"
+          id="farm-selector"
+          name="farm"
+        >
+          <option
+            value="1"
+          >
+            Friman Metsola Collective
+          </option>
+        </select>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconOutlined css-1g12qau-MuiSvgIcon-root-MuiNativeSelect-icon"
+          data-testid="ArrowDropDownIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="MuiFormControl-root selector css-1nrlq1o-MuiFormControl-root"
+    >
+      <label
+        class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1kty9di-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink="true"
+        for="period"
+      >
+        Period
+      </label>
+      <div
+        class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiNativeSelect-root css-1480iag-MuiInputBase-root-MuiInput-root"
+      >
+        <select
+          aria-invalid="false"
+          class="MuiNativeSelect-select MuiNativeSelect-outlined MuiInput-input MuiInputBase-input css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input"
+          data-testid="select-period"
+          id="period"
+          name="period"
+        >
+          <option
+            data-testid="period-selection"
+            value="all"
+          >
+            All
+          </option>
+          <option
+            data-testid="period-selection"
+            value="month"
+          >
+            A Month
+          </option>
+        </select>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconOutlined css-1g12qau-MuiSvgIcon-root-MuiNativeSelect-icon"
+          data-testid="ArrowDropDownIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+    >
+      <label
+        class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1kty9di-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink="true"
+        for="sensor"
+      >
+        Sensor Type
+      </label>
+      <div
+        class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiNativeSelect-root css-1480iag-MuiInputBase-root-MuiInput-root"
+      >
+        <select
+          aria-invalid="false"
+          class="MuiNativeSelect-select MuiNativeSelect-outlined MuiInput-input MuiInputBase-input css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input"
+          id="sensor"
+          name="sensor"
+        >
+          <option
+            value="none"
+          >
+            Choose sensor
+          </option>
+          <option
+            value="temperature"
+          >
+            Temperature
+          </option>
+          <option
+            value="ph"
+          >
+            pH
+          </option>
+          <option
+            value="rainfall"
+          >
+            Rainfall
+          </option>
+        </select>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconOutlined css-1g12qau-MuiSvgIcon-root-MuiNativeSelect-icon"
+          data-testid="ArrowDropDownIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="btn_container"
+    >
+      <button
+        class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        add data
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
