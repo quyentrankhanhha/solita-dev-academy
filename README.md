@@ -6,6 +6,9 @@ This project displays data (farm name, date, period, sensor type and location wh
 
 The project shows the data in the table format and can be filtered data based on multiple conditions. The line charts displays the data of the farms according to the full/ a month with selected sensor data. The map shows the location of the farms and can be interacted with. For examople, when choosing a farm marker on the map, the table displays the full data of the farm, and the line graphs will displays based on the data. There is also the UI for adding data for the current farms and create data for the new farms.
 
+## DEMO VIDEO OF THE PROJECT
+Click here to see the project without installing anything! https://youtu.be/UbOQ5y-QD2g
+
 ## Technology
 ![React](https://img.shields.io/badge/ReactJs-17.0.2-blue) ![MUI](https://img.shields.io/badge/MUI-5.2.5-9cf) ![axios](https://img.shields.io/badge/axios-0.24.0-red) ![Highcharts](https://img.shields.io/badge/Highcharts-9.3.2-blueviolet) ![Leaflet](https://img.shields.io/badge/Leaflet-1.7.1-brightgreen) ![uuid](https://img.shields.io/badge/uuid-8.3.2-red)
 
