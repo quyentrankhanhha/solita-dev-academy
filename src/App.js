@@ -41,7 +41,6 @@ function App() {
         for (let i = 0; i < res.data.length; i++) {
           res.data[i].latlngData = latlngData[i]
         }
-        console.log(res.data)
         setFarms(res.data)
         setSelectedFarmId('1')
         setSelectedPeriod('all')
